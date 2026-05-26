@@ -80,9 +80,36 @@ Cada programa tem `AWARD_CHART` com faixas `[min, max]` milhas por tipo e cabine
 
 Se `SEATS_AERO_API_KEY` estiver no `.env.local`, usa dados reais para 8 programas. LATAM e Livelo sempre usam estimativas.
 
+## URLs de booking por programa
+
+Os sites brasileiros **não aceitam parâmetros de URL** (buscas em JS puro), então apontam para a página de busca sem params:
+- **Smiles** → `smiles.com.br/passagens`
+- **TudoAzul** → `passagens.voeazul.com.br/pt/buscador-de-pontos`
+- **Livelo** → `livelo.com.br/viagens/passagens`
+
+Os internacionais aceitam deep link com parâmetros pré-preenchidos:
+- **LATAM** → `latamairlines.com/br/pt/oferta-voos?origin=...&redemption=true`
+- **United, American, LifeMiles, Aeroplan, Emirates, Turkish** → URLs com params de origem/destino/data
+
+**Não tentar "consertar" as URLs dos programas BR com parâmetros** — os sites não suportam e retornam 404.
+
+## Clipboard ao abrir programa
+
+`award-result-card.tsx` — ao clicar no botão de busca:
+1. Copia `"GRU → MIA · Econômica"` para o clipboard via `navigator.clipboard.writeText()`
+2. Abre o site do programa via `window.open()`
+3. Botão fica verde por 3s com "Busca copiada! Cole no site"
+4. Aparece hint: "Cole no campo de busca: GRU → MIA"
+
 ## Decisões de arquitetura
 
 - **Radix Popover Portal** nos inputs de aeroporto e data — evita ser cortado pelo `overflow-hidden` da seção hero e herdar `text-white`
 - **Calendário sem dependência externa** — implementado manualmente em `date-picker-input.tsx`
-- **Estimativas transparentes** — label "Estimativa" em cada card; botão "Abrir em todos os programas" abre cada site com busca pré-preenchida via `window.open()`
+- **Estimativas transparentes** — label "Estimativa" em cada card; botão "Abrir em todos os programas" abre cada site com `window.open()`
+- **Clipboard automático** — copia origem/destino/cabine ao abrir qualquer programa; útil para sites BR que não aceitam deep link
 - **Uso pessoal** — sem auth, sem DB, sem analytics
+
+## Deploy
+
+- **GitHub**: github.com/Felipews365/milhas-hunt
+- **Vercel**: milhas-hunt.vercel.app (deploy automático a cada push no main)
