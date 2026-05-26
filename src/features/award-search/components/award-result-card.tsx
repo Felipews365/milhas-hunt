@@ -108,7 +108,7 @@ export function AwardResultCard({ offer, isBestValue, rank }: Props) {
         {/* Clipboard hint */}
         {copied && (
           <p className="mt-2 text-center text-xs text-green-700 font-medium">
-            "{offer.origin} → {offer.destination} · {CABIN_LABELS[offer.cabin]}" copiado
+            Cole no campo de busca: <span className="font-bold">{offer.origin} → {offer.destination}</span>
           </p>
         )}
       </div>

@@ -30,8 +30,8 @@ export const PROGRAMS: Record<ProgramCode, Program> = {
     bgColor: "#fff4ed",
     textColor: "#c2410c",
     country: "BR",
-    bookingUrl: (o, d, date) =>
-      `https://www.smiles.com.br/passagens#/results?originAirportCode=${o}&destinationAirportCode=${d}&departureDate=${date}&adults=1&tripType=1&cabin=Y&isFlexible=false`,
+    bookingUrl: (_o, _d, _date) =>
+      `https://www.smiles.com.br/passagens`,
   },
   latam: {
     code: "latam",
@@ -52,8 +52,8 @@ export const PROGRAMS: Record<ProgramCode, Program> = {
     bgColor: "#eff6ff",
     textColor: "#1d4ed8",
     country: "BR",
-    bookingUrl: (o, d, date) =>
-      `https://www.voeazul.com.br/br/pt/home/selecionar-voo?departing=${o}&arriving=${d}&departureDate=${date}&adults=1&children=0&infants=0&isReward=true`,
+    bookingUrl: (_o, _d, _date) =>
+      `https://passagens.voeazul.com.br/pt/buscador-de-pontos`,
   },
   livelo: {
     code: "livelo",
@@ -63,8 +63,8 @@ export const PROGRAMS: Record<ProgramCode, Program> = {
     bgColor: "#f5f3ff",
     textColor: "#6d28d9",
     country: "BR",
-    bookingUrl: (o, d, date) =>
-      `https://www.livelo.com.br/viagens/passagens?origem=${o}&destino=${d}&dataIda=${date}&adultos=1&criancas=0&bebes=0&classe=Y`,
+    bookingUrl: (_o, _d, _date) =>
+      `https://www.livelo.com.br/viagens/passagens`,
   },
   united: {
     code: "united",
