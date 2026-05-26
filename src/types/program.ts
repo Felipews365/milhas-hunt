@@ -31,7 +31,7 @@ export const PROGRAMS: Record<ProgramCode, Program> = {
     textColor: "#c2410c",
     country: "BR",
     bookingUrl: (o, d, date) =>
-      `https://www.smiles.com.br/emissao-passagem-com-milhas?originAirport=${o}&destinationAirport=${d}&departureDate=${date}&adults=1&tripType=1`,
+      `https://www.smiles.com.br/passagens#/results?originAirportCode=${o}&destinationAirportCode=${d}&departureDate=${date}&adults=1&tripType=1&cabin=Y&isFlexible=false`,
   },
   latam: {
     code: "latam",
@@ -42,7 +42,7 @@ export const PROGRAMS: Record<ProgramCode, Program> = {
     textColor: "#be123c",
     country: "BR",
     bookingUrl: (o, d, date) =>
-      `https://www.latamairlines.com/br/pt/oferta-voos?origin=${o}&destination=${d}&outbound=${date}&adt=1&inf=0&chd=0&cabin=Y&redemption=true`,
+      `https://www.latamairlines.com/br/pt/oferta-voos?origin=${o}&destination=${d}&outbound=${date}&adt=1&inf=0&chd=0&cabin=Y&redemption=true&trip=OW`,
   },
   azul: {
     code: "azul",
@@ -53,7 +53,7 @@ export const PROGRAMS: Record<ProgramCode, Program> = {
     textColor: "#1d4ed8",
     country: "BR",
     bookingUrl: (o, d, date) =>
-      `https://www.voeazul.com.br/br/pt/home/selecionar-voo?departing=${o}&arriving=${d}&departureDate=${date}&adults=1&isReward=true`,
+      `https://www.voeazul.com.br/br/pt/home/selecionar-voo?departing=${o}&arriving=${d}&departureDate=${date}&adults=1&children=0&infants=0&isReward=true`,
   },
   livelo: {
     code: "livelo",
@@ -64,7 +64,7 @@ export const PROGRAMS: Record<ProgramCode, Program> = {
     textColor: "#6d28d9",
     country: "BR",
     bookingUrl: (o, d, date) =>
-      `https://www.livelo.com.br/viagens/passagens?origem=${o}&destino=${d}&dataIda=${date}&adultos=1`,
+      `https://www.livelo.com.br/viagens/passagens?origem=${o}&destino=${d}&dataIda=${date}&adultos=1&criancas=0&bebes=0&classe=Y`,
   },
   united: {
     code: "united",
@@ -129,8 +129,8 @@ export const PROGRAMS: Record<ProgramCode, Program> = {
     bgColor: "#fff1f2",
     textColor: "#991b1b",
     country: "TR",
-    bookingUrl: (o, d, date) =>
-      `https://www.turkishairlines.com/en-int/miles-and-smiles/award-ticket/`,
+    bookingUrl: (o, d, _date) =>
+      `https://www.turkishairlines.com/en-int/flights/?from=${o}&to=${d}&triptype=S&adult=1&child=0&infant=0&cabin=Y&redeemmiles=true`,
   },
 };
 
