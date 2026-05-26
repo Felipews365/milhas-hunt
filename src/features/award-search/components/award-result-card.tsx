@@ -1,9 +1,11 @@
-import Link from "next/link";
-import { ExternalLink, Zap, ArrowRight, Star } from "lucide-react";
+"use client";
+
+import { useState } from "react";
+import { ExternalLink, Zap, ArrowRight, Star, Check } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { PROGRAMS } from "@/types/program";
-import { formatMiles, formatCurrency } from "@/lib/formatters";
+import { formatMiles, formatCurrency, formatDate } from "@/lib/formatters";
 import type { AwardOffer } from "@/types/award";
 import { CABIN_LABELS } from "@/types/award";
 
@@ -15,6 +17,15 @@ type Props = {
 
 export function AwardResultCard({ offer, isBestValue, rank }: Props) {
   const program = PROGRAMS[offer.program];
+  const [copied, setCopied] = useState(false);
+
+  function handleOpen() {
+    const text = `${offer.origin} → ${offer.destination} · ${formatDate(offer.departureDate)} · ${CABIN_LABELS[offer.cabin]}`;
+    navigator.clipboard.writeText(text).catch(() => {});
+    setCopied(true);
+    setTimeout(() => setCopied(false), 3000);
+    window.open(offer.bookingUrl, "_blank", "noopener,noreferrer");
+  }
 
   return (
     <div
@@ -30,7 +41,7 @@ export function AwardResultCard({ offer, isBestValue, rank }: Props) {
       )}
 
       <div className="p-5">
-        {/* Header: program + cabin */}
+        {/* Header */}
         <div className="mb-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div
@@ -70,18 +81,36 @@ export function AwardResultCard({ offer, isBestValue, rank }: Props) {
           </p>
         </div>
 
-        {/* Estimate label */}
         <p className="mb-4 text-xs text-amber-600 font-medium">
           Estimativa — clique para ver preço real
         </p>
 
         {/* CTA */}
-        <Button asChild size="sm" className="w-full gap-2" style={{ backgroundColor: program.color }}>
-          <Link href={offer.bookingUrl} target="_blank" rel="noopener noreferrer">
-            Buscar no {program.shortName}
-            <ExternalLink className="h-3.5 w-3.5" />
-          </Link>
+        <Button
+          size="sm"
+          className="w-full gap-2 transition-all"
+          style={{ backgroundColor: copied ? "#16a34a" : program.color }}
+          onClick={handleOpen}
+        >
+          {copied ? (
+            <>
+              <Check className="h-3.5 w-3.5" />
+              Busca copiada! Cole no site
+            </>
+          ) : (
+            <>
+              Buscar no {program.shortName}
+              <ExternalLink className="h-3.5 w-3.5" />
+            </>
+          )}
         </Button>
+
+        {/* Clipboard hint */}
+        {copied && (
+          <p className="mt-2 text-center text-xs text-green-700 font-medium">
+            "{offer.origin} → {offer.destination} · {CABIN_LABELS[offer.cabin]}" copiado
+          </p>
+        )}
       </div>
     </div>
   );
